@@ -1,5 +1,5 @@
 {
-  description = "Example Darwin system flake";
+  description = "Darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -13,7 +13,35 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim
+        [
+          pkgs.bat
+          pkgs.btop
+          pkgs.cmake
+          pkgs.cmatrix
+          pkgs.fd
+          pkgs.ffmpeg
+          pkgs.fzf
+          pkgs.eza
+          pkgs.gcc
+          pkgs.git
+          pkgs.gnumake
+          pkgs.lazygit
+          pkgs.lua
+          pkgs.nodejs
+          pkgs.neovim
+          pkgs.python3
+          pkgs.ripgrep
+          pkgs.starship
+          pkgs.stow
+          pkgs.tmux
+          pkgs.vim
+          pkgs.wget
+          pkgs.yazi
+          pkgs.zoxide
+          pkgs.zsh-autosuggestions
+          pkgs.zsh-history-substring-search
+          pkgs.zsh-syntax-highlighting
+          pkgs.zsh-vi-mode
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -40,12 +68,12 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."simple" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#MacBook-Pro
+    darwinConfigurations."MacBook-Pro" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."simple".pkgs;
+    darwinPackages = self.darwinConfigurations."MacBook-Pro".pkgs;
   };
 }
