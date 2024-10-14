@@ -82,7 +82,7 @@
             while read src; do
               app_name=$(basename "$src")
               echo "copying $src" >&2
-                      ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+            ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
             done
           '';
 
@@ -94,7 +94,19 @@
         nix.settings.experimental-features = "nix-command flakes";
 
         # Create /etc/zshrc that loads the nix-darwin environment.
-        programs.zsh.enable = true;  # default shell on catalina
+        programs.zsh = {
+          enable = true;
+          enableCompletion = true;
+          enableBashCompletion = true;
+          promptInit = "";
+          interactiveShellInit = ''
+            source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+            source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+            source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+            source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+          '';
+        };
+
         # programs.fish.enable = true;
 
         # Set Git commit hash for darwin-version.
