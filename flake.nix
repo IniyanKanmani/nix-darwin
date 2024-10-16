@@ -5,10 +5,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nix-homebrew }:
     let
       configuration = { pkgs, config, ... }: {
 
@@ -118,6 +120,8 @@
 
         # The platform the configuration will be used on.
         nixpkgs.hostPlatform = "x86_64-darwin";
+
+        users.users.apple.home = "/Users/apple";
       };
     in
       {
@@ -126,6 +130,12 @@
       darwinConfigurations."MacBook-Pro" = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
+          home-manager.darwinModules.home-manager 
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.apple = import ./home.nix;
+          }
           nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {
@@ -133,6 +143,13 @@
               user = "apple";
             };
           }
+        ];
+      };
+
+      homeConfigurations."apple" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-darwin";
+        modules = [
+          ./home.nix
         ];
       };
 
