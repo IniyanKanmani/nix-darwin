@@ -44,6 +44,22 @@
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
 
+    # ".config/bat".source = "/Users/apple/dotfiles/bat";
+    # ".config/btop".source = "/Users/apple/dotfiles/btop";
+    # ".config/configstore".source = "/Users/apple/dotfiles/configstore";
+    # ".config/envman".source = "/Users/apple/dotfiles/envman";
+    # ".config/eza".source = "/Users/apple/dotfiles/eza";
+    # ".config/flutter".source = "/Users/apple/dotfiles/flutter";
+    # ".config/gh".source = "/Users/apple/dotfiles/gh";
+    # ".config/lazygit".source = "/Users/apple/dotfiles/lazygit";
+    # ".config/nix-darwin".source = "/Users/apple/dotfiles/nix-darwin";
+    # ".config/nvim".source = "/Users/apple/dotfiles/nvim";
+    # ".config/starship".source = "/Users/apple/dotfiles/starship";
+    # ".config/tmux".source = "/Users/apple/dotfiles/tmux";
+    # ".config/wezterm".source = "/Users/apple/dotfiles/wezterm";
+    # ".config/yazi".source = "/Users/apple/dotfiles/yazi";
+    # ".config/zsh".source = "/Users/apple/dotfiles/zsh";
+
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
@@ -70,11 +86,6 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-
-  # home.sessionPath = {
-  #   "/run/current-system/sw/bin"
-  #     "$HOME/.nix-profile/bin"
-  # };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
